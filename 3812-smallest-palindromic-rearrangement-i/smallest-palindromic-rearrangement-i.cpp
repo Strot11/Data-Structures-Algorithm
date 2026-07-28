@@ -1,39 +1,24 @@
 class Solution {
 public:
-string reverse(string s){
-    int n = s.length()-1;
-    int m = 0;
-    while(m<n){
-        swap(s[m],s[n]);
-        m++;
-        n--;
-    }
-    return s;
-}
     string smallestPalindrome(string s) {
-        int alph[26] ={0};
         int n = s.length();
-        for(int i=0;i<n;i++){
-            alph[s[i]-'a']++;
+        int bucket[26] = {0};
+
+        for (int i = 0; i < n / 2; i++) {
+            bucket[s[i] - 'a']++;
         }
-        int smallest = INT_MAX;
-        s = "";
-        for(int i=0;i<26;i++){
-              while(alph[i] > 1){
-                char ch = 'a' + i;
-                s += ch;
-                alph[i] -= 2;
-              }
-              if(alph[i] == 1){
-                smallest = min(smallest,i);
-              }
+
+        int left = 0;
+        int right = n - 1;
+
+        for (int i = 0; i < 26; i++) {
+            while (bucket[i] > 0) {
+                char c = i + 'a';
+                s[left++] = c;
+                s[right--] = c;
+                bucket[i]--;
+            }
         }
-        string ans = "";
-       if(smallest !=INT_MAX){
-        char ch = 'a' + smallest;
-        ans = (s + ch + reverse(s));
-       }
-       else ans = s + reverse(s);
-        return ans;
+return s;
     }
 };
