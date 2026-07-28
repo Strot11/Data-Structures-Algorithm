@@ -11,7 +11,7 @@ string reverse(string s){
     return s;
 }
     string smallestPalindrome(string s) {
-        vector<int> alph(26,0);
+        int alph[26] ={0};
         int n = s.length();
         for(int i=0;i<n;i++){
             alph[s[i]-'a']++;
