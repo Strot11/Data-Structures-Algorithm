@@ -17,14 +17,14 @@ int findMaxIdx(vector<int> &alph){
 }
     int minimumPushes(string word) {
         vector<int> alph(26,0);
-        int pushes = 8;
+        int pushes = 0;
         int ans = 0;
         for(int i=0;i<word.length();i++){
             alph[word[i]-'a']++;
         }
         while(!empty(alph)){
            int idx = findMaxIdx(alph);
-           ans += ( (pushes/8)* alph[idx]);
+           ans += ( (pushes/8 + 1)* alph[idx]);
            pushes++;
            alph[idx] = 0;
         }
