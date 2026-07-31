@@ -1,33 +1,23 @@
 class Solution {
 public:
-bool empty(vector<int> &alph){
-    for(int i=0;i<26;i++){
-        if(alph[i]!=0) return false;
-    }
-    return true;
-}
-int findMaxIdx(vector<int> &alph){
-    int idx = 0;
-    for(int i=0;i<26;i++){
-        if(alph[idx] < alph[i]){
-            idx = i;
-        }
-    }
-    return idx;
-}
     int minimumPushes(string word) {
-        vector<int> alph(26,0);
-        int pushes = 0;
-        int ans = 0;
-        for(int i=0;i<word.length();i++){
-            alph[word[i]-'a']++;
+         unordered_map<char, int> frequencyMap;
+
+        
+        for (char& c : word) {
+            ++frequencyMap[c];
         }
-        while(!empty(alph)){
-           int idx = findMaxIdx(alph);
-           ans += ( (pushes/8 + 1)* alph[idx]);
-           pushes++;
-           alph[idx] = 0;
+        priority_queue<int> frequencyQueue;
+        for (const auto& entry : frequencyMap) {
+            frequencyQueue.push(entry.second);
         }
-        return ans;
+        int totalPushes = 0;
+        int index = 0;
+        while (!frequencyQueue.empty()) {
+            totalPushes += (1 + (index / 8)) * frequencyQueue.top();
+            frequencyQueue.pop();
+            index++;
+        }
+        return totalPushes;
     }
 };
