@@ -1,16 +1,16 @@
 class Solution {
 public:
 bool solve(int n,vector<int> &dp){
-    if(n==0) return false;
+    if(n==0) return true;
     if(dp[n]!=-1) return dp[n];
     for(int i=1;i*i<=n;i++){
-       if(!solve(n-i*i,dp)) return dp[n]=true;
+       if(solve(n-i*i,dp)) return dp[n]=false;
     }
-    return dp[n] = false;
+    return dp[n] = true;
 }
     bool winnerSquareGame(int n) {
         vector<int> dp(n+1,-1);
         if(n == 1) return true;
-        return solve(n,dp);
+        return !solve(n,dp);
     }
 };
