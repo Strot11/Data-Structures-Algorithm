@@ -10,7 +10,6 @@ bool isAvailable(int a,int b,int c,int d,vector<int> &num){
         int m = reservedSeats.size();
         unordered_map<long long,vector<int>> gp;
         long long count = 0;
-        sort(reservedSeats.begin(),reservedSeats.end());
         for(int i=0;i<m;i++){
             int row = reservedSeats[i][0];
             int seat = reservedSeats[i][1];
