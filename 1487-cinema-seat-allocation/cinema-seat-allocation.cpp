@@ -1,19 +1,17 @@
 class Solution {
 public:
-bool isAvailable(int a,int b,int c,int d,vector<int> &num){
-    for(auto n:num){
-        if(n == a||n==b||n==c||n==d) return false;
-    }
+bool isAvailable(int a,int b,int c,int d,unordered_set<int> &num){
+    if(num.find(a)!=num.end() || num.find(b)!=num.end() || num.find(c)!=num.end() || num.find(d)!=num.end()) return false;
     return true;
 }
     int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {
         int m = reservedSeats.size();
-        unordered_map<long long,vector<int>> gp;
+        unordered_map<long long,unordered_set<int>> gp;
         long long count = 0;
         for(int i=0;i<m;i++){
             int row = reservedSeats[i][0];
             int seat = reservedSeats[i][1];
-           gp[row].push_back(seat);
+           gp[row].insert(seat);
         }
        for(auto [key,val]: gp){
         bool g1 = isAvailable(2,3,4,5,val);
