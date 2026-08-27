@@ -15,7 +15,8 @@ bool solve(int i,vector<int> &alph,string &target,bool &greater,string& ans){
         if(ch > target[i]) greater = true;
         alph[ch-'a']--;
         ans.push_back(ch);
-        if(solve(i+1,alph,target,greater,ans)) return true;
+        bool isGreater = (greater || ch>target[i]);
+        if(solve(i+1,alph,target,isGreater,ans)) return true;
         ans.pop_back();
         alph[ch-'a']++;
     }
