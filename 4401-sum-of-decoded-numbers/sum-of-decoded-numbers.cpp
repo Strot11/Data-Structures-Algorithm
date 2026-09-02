@@ -1,13 +1,15 @@
 class Solution {
 public:
     int mod = 1e9+7;
-    long long power(long long a,long long b){
-        if(b == 0) return 1;
-        long long res = power(a,b/2);
-        if(b&1){
-            return ((res*res)%mod*a)%mod;
+    int power(long long base, long long exp){
+        int res = 1;
+        while(exp > 0){
+            if(exp % 2 == 1) res = (base * res) % mod;
+            base = (base * base) % mod;
+            exp /= 2;
         }
-        return (res*res)%mod;
+
+        return res;
     }
     long long solve(long long w,long long d){
         vector<int> digits;
