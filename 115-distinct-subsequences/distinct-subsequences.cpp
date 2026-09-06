@@ -1,18 +1,14 @@
 class Solution {
 public:
-string temp;
 vector<vector<int>> dp;
 int solve(int i,int j,string &s, string &t){
-    if(i == s.length() || j == t.length()){
-        return (temp == t);
-    }
+    if(j==t.length()) return 1;
+    if(i == s.length()) return 0;
     if(dp[i][j]!=-1) return dp[i][j];
     int take = 0;
     int nottake = 0;
     if(s[i] == t[j]){
-        temp.push_back(s[i]);
         take = solve(i+1,j+1,s,t);
-        temp.pop_back();
     }
     nottake = solve(i+1,j,s,t);
     return dp[i][j] = take + nottake;
