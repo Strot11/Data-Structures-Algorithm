@@ -3,13 +3,6 @@ public:
 int M = 1e9+7;
 int dp[2001];
 vector<int> prev;
-int solve(int n){
-    if(n == 0) return 1;
-    if(dp[n]!=-1) return dp[n];
-    int total = (2*(solve(n-1))%M)%M;
-    int duplicates = (prev[n]!=0) ? solve(prev[n] - 1) : 0;
-    return dp[n] = (total - duplicates + M)%M;
-}
     int distinctSubseqII(string s) {
         int n= s.length();
         memset(dp,-1,sizeof(dp));
@@ -20,6 +13,12 @@ int solve(int n){
             prev[i] = lastseen[idx];
             lastseen[idx] = i;
         }
-        return (solve(n)-1 + M)%M;
+        dp[0] = 1; 
+        for(int i=1;i<=n;i++){
+            int total = (2*(dp[i-1])%M)%M;
+            int duplicates = (prev[i]!=0) ? dp[prev[i] - 1] : 0;
+            dp[i] = (total - duplicates + M)%M;
+        }
+        return (dp[n]-1 + M)%M;
     }
 };
