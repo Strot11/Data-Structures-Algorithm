@@ -20,7 +20,7 @@ pair<int,int> solve(TreeNode* root){
     return {(root->val+left.first+right.first),(left.second+right.second+1)};
 }
     int averageOfSubtree(TreeNode* root) {
-        pair<int,int> a = solve(root);
+        solve(root);
         return ans;
     }
 };
