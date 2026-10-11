@@ -1,30 +1,26 @@
 class Solution {
 public:
-    long long minSumSquareDiff(vector<int>& nums1, vector<int>& nums2, int k1,
-                               int k2) {
-        long long k = (long long)k1 + k2;
+    long long minSumSquareDiff(vector<int>& nums1, vector<int>& nums2, int k1, int k2) {
         int n = nums1.size();
-        for (int i = 0; i < n; i++) {
-            nums1[i] = abs(nums1[i] - nums2[i]);
+        long long ans = 0;
+        long long k = k1+k2;
+       vector<long long> AC(1e5+1,0);
+        for(int i=0;i<n;i++){
+            long long num = abs(nums1[i] - nums2[i]);
+            AC[num]++; 
         }
-        if (accumulate(nums1.begin(), nums1.end(), 0LL) <= k) {
-            return 0;
-        }
-        sort(nums1.begin(), nums1.end(), greater<int>());
-        nums1.push_back(0);
-        for (int i = 1; i <= n; i++) {
-            long long cost = (long long)(nums1[i - 1] - nums1[i]) * i;
-            if (cost > k) {
-                long long q = k / i, r = k % i;
-                long long hi = nums1[i - 1] - q;
-                long long ans = hi * hi * (i - r) + (hi - 1) * (hi - 1) * r;
-                for (int j = i; j < n; j++) {
-                    ans += (long long)nums1[j] * nums1[j];
-                }
-                return ans;
+        for(int i=1e5;i>0;i--){
+            if(k == 0) break;
+            if(AC[i]!=0){
+                long long op = min(AC[i],k);
+                AC[i] -= op;
+                AC[i-1] += op;
+                k-=op;
             }
-            k -= cost;
         }
-        return 0;
+        for(int i=1;i<1e5+1;i++){
+           if(AC[i]) ans += (AC[i]*i*i);
+        }
+        return ans;
     }
 };
